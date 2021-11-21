@@ -9,8 +9,12 @@ export const sequelize = new Sequelize(process.env.POSTGRES_DATABASE, process.en
 export const testPsqlConnection = async () => {
   try {
     await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
+    console.log('Connection to database established successfully.');
   } catch (error) {
-    testPsqlConnection();
+    console.log(error.message);
+    console.log('Trying to establish connection again in 2 secs');
+    setTimeout(() => {
+      testPsqlConnection();
+    }, 2000);
   }
 };
