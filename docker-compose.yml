@@ -37,3 +37,11 @@ services:
       - ./user-brain:/app:ro
     depends_on:
       - user-mongo
+  storage:
+    build: storage
+    env_file:
+      - ./storage/.env
+    ports:
+      - 8081:8081
+    volumes:
+      - ./storage:/app:ro
