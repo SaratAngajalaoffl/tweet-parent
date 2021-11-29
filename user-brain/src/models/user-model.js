@@ -13,6 +13,12 @@ const UserSchema = new mongoose.Schema({
   picture: {
     type: String,
   },
+  following: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
 });
 
 export const UserModel = mongoose.model('User', UserSchema);

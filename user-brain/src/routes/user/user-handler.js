@@ -1,5 +1,5 @@
 import { sendErrorResponse, sendSuccessResponse } from '../../helpers/response-helper';
-import { getUser } from '../../services/user-services';
+import { createUser, getUser } from '../../services/user-services';
 
 export const getUserDetailsHandler = async (req, res) => {
   try {
@@ -10,7 +10,7 @@ export const getUserDetailsHandler = async (req, res) => {
   }
 };
 
-export const initiateUser = (req, res) => {
+export const initiateUser = async (req, res) => {
   try {
     const user = await createUser(req.body);
 
