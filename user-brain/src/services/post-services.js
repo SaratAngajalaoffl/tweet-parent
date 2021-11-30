@@ -14,9 +14,10 @@ export const getPosts = async (pipeline = [{ $match: {} }]) => {
 
 export const getPostById = async (postId) => {
   const post = await PostModel.findById(postId).populate('owner');
-  post.comments = await getCommentsByPostId(postId);
 
-  return post;
+  const comments = await getCommentsByPostId(postId);
+
+  return { ...post.toObject(), comments };
 };
 
 export const likePost = async (userId, postId) => {

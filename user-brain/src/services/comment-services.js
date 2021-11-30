@@ -2,11 +2,12 @@ import mongoose from 'mongoose';
 import { CommentModel } from '../models/comment-model';
 
 export const getCommentsByPostId = async (postId) => {
-  const comments = CommentModel.find({ post: mongoose.Types.ObjectId(postId) }).populate('owner');
+  console.log(`post id ${postId}`);
+  return await CommentModel.find({ post: mongoose.Types.ObjectId(postId) }).populate('owner');
 };
 
 export const createComment = async (details) => {
-  return await CommentModel.create(details);    
+  return await CommentModel.create(details);
 };
 
 export const likeComment = async (userId, commentId) => {
