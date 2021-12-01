@@ -1,5 +1,6 @@
+import { setCache } from '../../helpers/redis-helper';
 import { sendErrorResponse, sendSuccessResponse } from '../../helpers/response-helper';
-import { createComment, getCommentsByPostId, likeComment } from '../../services/comment-services';
+import { createComment, likeComment } from '../../services/comment-services';
 import { createNewPost, getPostById, getPosts } from '../../services/post-services';
 
 export const createPost = async (req, res) => {
@@ -24,6 +25,7 @@ export const getPostByIdHandler = async (req, res) => {
   try {
     const { postid } = req.params;
     const post = await getPostById(postid);
+    await setCache(`${req.originalUrl}:${JSON.stringify(req.body)}`, post);
     return sendSuccessResponse(res, post);
   } catch (err) {
     return sendErrorResponse(res, err.message);

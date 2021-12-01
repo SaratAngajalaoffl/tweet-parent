@@ -2,6 +2,7 @@ import express from 'express';
 import router from './src/routes';
 import cors from 'cors';
 import morgan from 'morgan';
+import './src/helpers/redis-helper';
 
 import {} from './src/helpers/database-helper';
 
