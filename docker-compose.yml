@@ -45,3 +45,7 @@ services:
       - 8082:8082
     volumes:
       - ./storage:/app:ro
+  redis:
+    image: redis:6.2.6-alpine
+    ports:
+      - 6379:6379
