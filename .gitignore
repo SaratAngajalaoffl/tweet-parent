@@ -7,3 +7,22 @@ node_modules
 *log*
 
 uploads
+
+# REACT IGNORES
+
+/.pnp
+.pnp.js
+
+/coverage
+
+/build
+
+.DS_Store
+
+# Model Ignores
+data
+.vscode
+.mypy_cache
+GloVe
+saves
+*cache*

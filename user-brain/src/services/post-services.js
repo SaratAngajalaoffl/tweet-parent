@@ -6,7 +6,7 @@ export const createNewPost = async (details) => {
   return await PostModel.create(details);
 };
 
-export const getPosts = async (pipeline = [{ $match: {} }]) => {
+export const getPosts = async (pipeline = [{ $match: { bullyRating: { $lte: 0.5 } } }]) => {
   const posts = PostModel.aggregate(pipeline);
   PostModel.populate(posts, { path: 'owner' });
   return posts;
