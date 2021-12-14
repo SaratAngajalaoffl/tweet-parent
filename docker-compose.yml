@@ -45,7 +45,7 @@ services:
     ports:
       - 8082:8082
     volumes:
-      - ./storage:/app:ro
+      - ./storage:/app
   redis:
     image: redis:6.2.6-alpine
   detection-model:

@@ -22,4 +22,4 @@ def check_bullying():
 	return jsonify({"result":get_bullying_prediction(data["data"])})
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=8083)
+    app.run(host='detection-model', port=8083)
