@@ -1,12 +1,14 @@
 version: '3'
 
 services:
+
     user-pg:
         image: postgres
         restart: always
         environment:
             - POSTGRES_PASSWORD=password
             - POSTGRES_DB=tweet
+
     auth:
         build: auth
         env_file:
@@ -17,9 +19,11 @@ services:
             - ./auth:/app:ro
         depends_on:
             - user-pg
+            
     user-mongo:
         image: mongo
         restart: always
+
     admin-brain:
         build: admin-brain
         env_file:
@@ -30,6 +34,7 @@ services:
             - ./admin-brain:/app:ro
         depends_on:
             - user-mongo
+
     user-brain:
         build: user-brain
         env_file:
@@ -40,14 +45,16 @@ services:
             - ./user-brain:/app:ro
         depends_on:
             - user-mongo
+
     admin-client:
         build: admin-client
         ports:
-            - 3000:3001
+            - 3001:3000
         volumes:
             - ./admin-client:/app
         depends_on:
             - admin-brain
+
     user-client:
         build: user-client
         ports:
@@ -56,6 +63,7 @@ services:
             - ./user-client:/app
         depends_on:
             - user-brain
+
     storage:
         build: storage
         env_file:
@@ -64,8 +72,10 @@ services:
             - 8082:8082
         volumes:
             - ./storage:/app
+
     redis:
         image: redis:6.2.6-alpine
+
     detection-model:
         build: detection-model
         ports:
