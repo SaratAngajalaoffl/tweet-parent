@@ -1,56 +1,74 @@
 version: '3'
 
 services:
-  user-pg:
-    image: postgres
-    restart: always
-    environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=tweet
-  auth:
-    build: auth
-    env_file:
-      - ./auth/.env
-    ports:
-      - 8080:8080
-    volumes:
-      - ./auth:/app:ro
-    depends_on:
-      - user-pg
-  user-mongo:
-    image: mongo
-    restart: always
-  user-brain:
-    build: user-brain
-    env_file:
-      - ./user-brain/.env
-    ports:
-      - 8081:8081
-    volumes:
-      - ./user-brain:/app:ro
-    depends_on:
-      - user-mongo
-  user-client:
-    build: user-client
-    ports:
-      - 3000:3000
-    volumes:
-      - ./user-client:/app
-    depends_on:
-      - user-brain
-  storage:
-    build: storage
-    env_file:
-      - ./storage/.env
-    ports:
-      - 8082:8082
-    volumes:
-      - ./storage:/app
-  redis:
-    image: redis:6.2.6-alpine
-  detection-model:
-    build: detection-model
-    ports:
-      - 8083:8083
-    volumes:
-      - ./detection-model:/app
+    user-pg:
+        image: postgres
+        restart: always
+        environment:
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=tweet
+    auth:
+        build: auth
+        env_file:
+            - ./auth/.env
+        ports:
+            - 8080:8080
+        volumes:
+            - ./auth:/app:ro
+        depends_on:
+            - user-pg
+    user-mongo:
+        image: mongo
+        restart: always
+    admin-brain:
+        build: admin-brain
+        env_file:
+            - ./admin-brain/.env
+        ports:
+            - 8084:8084
+        volumes:
+            - ./admin-brain:/app:ro
+        depends_on:
+            - user-mongo
+    user-brain:
+        build: user-brain
+        env_file:
+            - ./user-brain/.env
+        ports:
+            - 8081:8081
+        volumes:
+            - ./user-brain:/app:ro
+        depends_on:
+            - user-mongo
+    admin-client:
+        build: admin-client
+        ports:
+            - 3000:3001
+        volumes:
+            - ./admin-client:/app
+        depends_on:
+            - admin-brain
+    user-client:
+        build: user-client
+        ports:
+            - 3000:3000
+        volumes:
+            - ./user-client:/app
+        depends_on:
+            - user-brain
+    storage:
+        build: storage
+        env_file:
+            - ./storage/.env
+        ports:
+            - 8082:8082
+        volumes:
+            - ./storage:/app
+    redis:
+        image: redis:6.2.6-alpine
+    detection-model:
+        build: detection-model
+        ports:
+            - 8083:8083
+        volumes:
+            - ./detection-model:/app
