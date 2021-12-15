@@ -2,7 +2,7 @@ import { sendErrorResponse, sendSuccessResponse } from '../helpers/response-help
 import { PostModel } from '../models/post-model';
 import { getPosts } from '../services/post-services';
 
-export const getUnethicalPostsHandler = async (res, res) => {
+export const getUnethicalPostsHandler = async (req, res) => {
     try {
         const posts = await getPosts();
         return sendSuccessResponse(res, posts);
@@ -11,7 +11,7 @@ export const getUnethicalPostsHandler = async (res, res) => {
     }
 };
 
-export const approvePostHandler = async (res, res) => {
+export const approvePostHandler = async (req, res) => {
     try {
         const { postId } = req.body;
         await PostModel.findByIdAndUpdate(postId, { $set: { bullyRating: 0.0 } });
@@ -20,7 +20,7 @@ export const approvePostHandler = async (res, res) => {
         return sendErrorResponse(res, err.message);
     }
 };
-export const blockPostHandler = async (res, res) => {
+export const blockPostHandler = async (req, res) => {
     try {
         const { postId } = req.body;
         await PostModel.findByIdAndUpdate(postId, { $set: { bullyRating: 0.5 } });

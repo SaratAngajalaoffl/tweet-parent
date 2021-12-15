@@ -1,7 +1,5 @@
 import express from 'express';
-import { validateUser } from '../helpers/jwt-helper';
-import userRouter from './user';
-import postRouter from './post';
+import { validateAdmin, validateUser } from '../helpers/jwt-helper';
 import { approvePostHandler, blockPostHandler, getUnethicalPostsHandler } from './handler';
 
 const router = express.Router();
